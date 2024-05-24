@@ -9,23 +9,23 @@
                             <label for="nome">Nome Subestação: </label>
                             <input type="text">
                         </div>
+                        <label for="regiao">Região</label>
                         <div class="regiao">
-                            <label for="regiao">Região</label>
                             <input type="text" placeholder="macroregiao">
                             <label for="estado">Estado</label>
                             <input type="text">
                         </div>
                     </div>
                     <div class="right">
+                        <label for="dataRef">Data de Referência: </label>
                         <div class="dataReferencia">
-                            <label for="dataRef">Data de Referência: </label>
                             <label for="ano">Ano</label>
                             <input type="text">
                             <label for="mes">Mês</label>
                             <input type="text">
                         </div>
+                        <label for="tipoInstalacao">Tipo de instalação: </label>
                         <div class="tipoInstSub">
-                            <label for="tipoInstalacao">Tipo de instalação: </label>
                             <input type="text">
                         </div>
                     </div>
@@ -34,12 +34,12 @@
                 <section class="dados-patio">
                     <h2>Pátio</h2>
                     <div class="left">
-                        <div class="nomeSubestacao">
-                            <label for="nome">Tensão Primária: </label>
+                        <div class="tensaoPrimaria">
+                            <label for="tensaoPrimaria">Tensão Primária: </label>
                             <input type="text" placeholder="kV">
                         </div>
-                        <div class="regiao">
-                            <label for="regiao">Arranjo: </label>
+                        <div class="arranjo">
+                            <label for="arranjo">Arranjo: </label>
                             <input type="text" placeholder="kV">
                         </div>
                     </div>
@@ -70,25 +70,208 @@
                             icone de add
                             <font-awesome-icon icon="add" :font-size="20" color="green" />
                         </div>
-
+                        
                     </section>
+                    <div class="tableModuloManobra">
+                        <div class="title-table">
+                        <table>
+                            <thead>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Ação</th>
+                            </thead>
+
+                            <tbody>
+                            <tr class="imp">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            <tr class="par">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
                     <hr>
-                    <section>Outro Módulo</section>
+                    <h3>Módulo de Equipamento</h3>
+                    <section class="modulo-equipamento">
+                        <div class="up">
+                            <div class="left">
+                            <div class="tipoEquipamento">
+                                <label for="nome">Tipo de Equipamento: </label>
+                                <input type="text">
+                            </div>
+                            <div class="moduloEquipamentoQuantidade">
+                                <label for="regiao">Quantidade: </label>
+                                <input type="text">
+                            </div>
+                            </div>
+                            <div class="right">
+                            <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
+                            icone de add
+                            <font-awesome-icon icon="add" :font-size="20" color="green" />
+                            </div>
+                        </div>
+                    </section>
+                    <div class="tableModuloEquipamento">
+                        <div class="title-table">
+                        <table>
+                            <thead>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Ação</th>
+                            </thead>
+
+                            <tbody>
+                            <tr class="imp">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            <tr class="par">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <section class="salva-patio">
+                        <label for="addPatio">Cancelar: </label>
+                            icone de arrowback
+                            <font-awesome-icon icon="arrow-left" :font-size="20" color="green" />
+                        <label for="addPatio">Adicionar Pátio: </label>
+                            icone de add
+                            <font-awesome-icon icon="add" :font-size="20" color="green" />
+                    </section>
+                    <div class="tablePatio">
+                        <div class="title-table">
+                        <table>
+                            <thead>
+                            <th>Pátio</th>
+                            <th>Tensão Primária</th>
+                            <th>Arranjo</th>
+                            <th>Qtd. Módulos de Manobra</th>
+                            <th>Qtd. Módulos de Equipamento</th>
+                            <th>Ação</th>
+                            </thead>
+
+                            <tbody>
+                            <tr class="imp">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            <tr class="par">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
                 </section>
+                <hr>
+                <section class="salva-subestacao">
+                        <label for="addSubestacao">Cancelar: </label>
+                            icone de arrowback
+                            <font-awesome-icon icon="arrow-left" :font-size="20" color="green" />
+                        <label for="addSubestacao">Adicionar Subestação: </label>
+                            icone de add
+                            <font-awesome-icon icon="add" :font-size="20" color="green" />
+                    </section>
+                    <div class="tablePatio">
+                        <div class="title-table">
+                        <table>
+                            <thead>
+                            <th>Nome Subestação</th>
+                            <th>Data Cotação</th>
+                            <th>Qtd. Módulos de Manobra</th>
+                            <th>Qtd. Módulos de Equipamento</th>
+                            </thead>
+
+                            <tbody>
+                            <tr class="imp">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            <tr class="par">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                <!-- <font-awesome-icon icon="edit" :font-size="20" color="green"/>
+                                <font-awesome-icon icon="trash-alt" :font-size="20" color="red" />
+                                -->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
             </section>
             <div></div>
 
         </div>
         <div></div>
     </section>
+    <section class="gerar-excel">
+        <label for="gerarExcel">Gerar Excel: </label>
+            icone de excel
+        <font-awesome-icon icon="file-excel" :font-size="20" color="green" />
+    </section>
+
 </template>
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAdd } from '@fortawesome/free-solid-svg-icons'
+import { faAdd, faArrowLeft, faPlus, faFileExcel } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' 
 
-library.add(faAdd)
+library.add(faAdd, faArrowLeft, faPlus, faFileExcel )
 export default {
     name: "OrcamentosComponent",
     components: {
@@ -123,7 +306,7 @@ h1, h2, h3 {
 }
 
 .subestacao {
-    background-color: #DDD;
+    background-color: #f5f5f4;
     padding: 3%;
 }
 
@@ -133,6 +316,10 @@ h1, h2, h3 {
     justify-content: space-between;
 }
 
+.nomeSubestacao {
+    display: flex;
+    flex-direction: column;
+}
 .dados-subestacao .left {
     display: flex;
     flex-direction: column;
@@ -155,6 +342,16 @@ h1, h2, h3 {
     flex-direction: row;
 }
 
+.dados-patio .left {
+    display: flex;
+    flex-direction: row;
+}
+
+.dados-patio .left .tensaoPrimaria, .arranjo {
+    display: flex;
+    flex-direction: column;
+}
+
 .dados-patio .modulo-manobra {
     display: flex;
     flex-direction: row;
@@ -167,5 +364,88 @@ h1, h2, h3 {
 }
 .dados-patio .modulo-manobra .left .sincTipo {
     display: flex;
+}
+.dados-patio .modulo-manobra .left .sincDisjuntor, .tipoAplicacao, .moduloManobraQuantidade, .right .moduloManobraTipo {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-table {
+  width: 100%;
+  margin: 55px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+table thead {
+  background-color: #F5FABF;
+
+}
+
+th {
+  padding: 1% 20px;
+  color: #000;
+}
+
+th:first-child {
+  border-top-left-radius: 15px;
+}
+
+th:last-child {
+  border-top-right-radius: 15px;
+}
+
+tbody tr {
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.imp {
+  background-color: #99C7E8;
+  border: none;
+}
+
+.par {
+  background-color: #66AADD;
+  margin: 0;
+}
+td:last-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 1%;
+}
+
+td {
+  border: none;
+  padding: 1.4% 7%;
+  text-align: center;
+  color: #000;
+}
+.font-awesome-icon {
+  font-size: 200px !important;
+  color: red !important;
+}
+
+.dados-patio .modulo-equipamento .up {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.dados-patio .modulo-equipamento .up .tipoEquipamento, .moduloEquipamentoQuantidade {
+    display: flex;
+    flex-direction: column;
+}
+.gerar-excel {
+    display: flex;
+    justify-content: center;
+    margin: 30px 35%;
+    background-color: #42ebaa;
+    padding: 25px;
 }
 </style>
