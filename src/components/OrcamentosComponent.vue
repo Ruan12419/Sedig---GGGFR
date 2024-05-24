@@ -11,18 +11,27 @@
                         </div>
                         <label for="regiao">Região</label>
                         <div class="regiao">
-                            <input type="text" placeholder="macroregiao">
-                            <label for="estado">Estado</label>
-                            <input type="text">
+                            <div class="column">
+                                <label for="estado">Macroregião</label>
+                                <input type="text" placeholder="macroregiao">
+                            </div>
+                            <div class="column">
+                                <label for="estado">Estado</label>
+                                <input type="text">
+                            </div>
                         </div>
                     </div>
                     <div class="right">
                         <label for="dataRef">Data de Referência: </label>
                         <div class="dataReferencia">
+                            <div class="column">
                             <label for="ano">Ano</label>
                             <input type="text">
+                            </div>
+                            <div class="column">
                             <label for="mes">Mês</label>
                             <input type="text">
+                            </div>
                         </div>
                         <label for="tipoInstalacao">Tipo de instalação: </label>
                         <div class="tipoInstSub">
@@ -119,7 +128,7 @@
                             </div>
                             </div>
                             <div class="right">
-                            <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
+                            <label for="addModuloDeManobra">Adicionar Módulo de Equipamento: </label>
                             icone de add
                             <font-awesome-icon icon="add" :font-size="20" color="green" />
                             </div>
@@ -259,9 +268,8 @@
         <div></div>
     </section>
     <section class="gerar-excel">
-        <label for="gerarExcel">Gerar Excel: </label>
-            icone de excel
-        <font-awesome-icon icon="file-excel" :font-size="20" color="green" />
+        <label for="gerarExcel"></label>
+        <font-awesome-icon icon="file-excel" :font-size="45" color="white" />
     </section>
 
 </template>
@@ -316,6 +324,11 @@ h1, h2, h3 {
     justify-content: space-between;
 }
 
+input {
+    height: 40px;
+    border: none;
+    margin-top: 30px;
+}
 .nomeSubestacao {
     display: flex;
     flex-direction: column;
@@ -445,7 +458,15 @@ td {
     display: flex;
     justify-content: center;
     margin: 30px 35%;
-    background-color: #42ebaa;
-    padding: 25px;
+    background-color: #46b341;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+.salva-subestacao {
+    margin-top: 100px;
+}
+.column {
+    display: flex;
+    flex-direction: column;
 }
 </style>
