@@ -13,8 +13,8 @@
       <div class="img-perfil" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
       <div alt="foto-perfil" srcset="" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;"></div>
       <div v-if="showDropdown" class="dropdown">
-        <button>Edit Profile</button>
-        <button>Logout</button>
+        <button>Perfil</button>
+        <button style="color: #FF0000;">Logout</button>
       </div>
     </div>
     </header>
@@ -75,7 +75,7 @@
     max-width: 150px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    right: 1px;
+    right: 5px;
   }
   .dropdown button {
     color: black;
@@ -86,6 +86,10 @@
   }
   .dropdown button:hover {
     background-color: #f1f1f1
+  }
+
+  .logout {
+    color: #FF0000;
   }
 
   @media screen and (max-width: 600px) {
