@@ -84,62 +84,67 @@
                     <h3 @click="showManobra = !showManobra">
                         Módulo de Manobra <button>{{ showManobra ? '^' : '>' }}</button>
                     </h3>
-<section class="moduloManobra row" v-if="showManobra">
-<div class="column">
-<div class="row">
-<div class="sincDisjuntor column columnMarginR">
-<label for="nome">Sincronização Disjuntor: </label>
-<select id="sincDisjuntor">
-<option disabled selected>Selecione</option>
-<option v-for="sincDisjuntor in subestacaoForm.sincDisjuntor" :key="sincDisjuntor">{{ sincDisjuntor }}</option>
-</select>
-</div>
+                    <div v-bind:class="{manobra: showManobra}">
+
+                        <section class="moduloManobra row" v-if="showManobra">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="sincDisjuntor column columnMarginR">
+                                        <label for="nome">Sincronização Disjuntor: </label>
+                                        <select id="sincDisjuntor">
+                                            <option disabled selected>Selecione</option>
+                                            <option v-for="sincDisjuntor in subestacaoForm.sincDisjuntor" :key="sincDisjuntor">{{ sincDisjuntor }}</option>
+                                        </select>
+                                    </div>
 <div class="tipoAplicacao column marginBottom">
 <label for="regiao">Tipo Aplicação: </label>
 <select id="tipoAplicacao">
-<option disabled selected>Selecione</option>
-<option v-for="tipoAplicacao in subestacaoForm.tipoAplicacao" :key="tipoAplicacao">{{ tipoAplicacao }}</option>
+    <option disabled selected>Selecione</option>
+    <option v-for="tipoAplicacao in subestacaoForm.tipoAplicacao" :key="tipoAplicacao">{{ tipoAplicacao }}</option>
 </select>
 </div>
 </div>
 <div class="moduloManobraQuantidade column">
-<label for="regiao">Quantidade: </label>
-<input type="text" v-model="selectedForm.selectedQuantidadeManobra">
+    <label for="regiao">Quantidade: </label>
+    <input type="text" v-model="selectedForm.selectedQuantidadeManobra">
 </div>
 </div>
 <div class="column" style="width: 35%">
-<div class="moduloManobraTipo column marginBottom">
-<label for="nome">Tipo: </label>
-<select id="tipo" v-model="selectedForm.selectedTipo" style="width: 100%;">
-<option disabled selected>Selecione</option>
-<option v-for="tipo in subestacaoForm.tipo" :key="tipo">{{ tipo }}</option>
-</select>
-</div>
-<div class="column" style="align-items: flex-end;">
-<label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
-<div class="botao-estilo" @click="adicionarModuloManobra">
-<font-awesome-icon icon="add" :font-size="30" color="white" />
-</div>
-</div>
+    <div class="moduloManobraTipo column marginBottom">
+        <label for="nome">Tipo: </label>
+        <select id="tipo" v-model="selectedForm.selectedTipo" style="width: 100%;">
+            <option disabled selected>Selecione</option>
+            <option v-for="tipo in subestacaoForm.tipo" :key="tipo">{{ tipo }}</option>
+        </select>
+    </div>
+    <div class="column" style="align-items: flex-end;">
+        <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
+        <div class="botao-estilo" @click="adicionarModuloManobra">
+            <font-awesome-icon icon="add" :font-size="30" color="white" />
+        </div>
+    </div>
 </div>
 </section>
 <div class="tableModuloManobra" v-if="showManobra">
-<TabelaComponent :items="tableModuloManobraItens" :colunas="tableModuloManobraColunas" />
+    <TabelaComponent :items="tableModuloManobraItens" :colunas="tableModuloManobraColunas" />
 </div>
-                    <hr>
+</div>
+<hr>
                     <h3 @click="showEquipamento = !showEquipamento">Módulo de Equipamento <button>{{ showEquipamento ?
                         '^' : '>' }}</button></h3>
-                    <section class="moduloEquipamento row" v-if="showEquipamento">
-                        <div class="row">
-                            <div class="tipoEquipamento column columnMarginR">
-                                <label for="nome">Tipo de Equipamento: </label>
-                                <select id="tipoEquipamento" v-model="selectedForm.selectedTipoElemento" style="width: 500px;">
-                                    <option disabled selected>Selecione</option>
-                                    <option v-for="tipoEquipamento in subestacaoForm.tipoEquipamento" :key="tipoEquipamento">{{ tipoEquipamento }}</option>
-                                </select>
-                            </div>
-                            <div class="moduloEquipamentoQuantidade column">
-                                <label for="regiao">Quantidade: </label>
+                        <div v-bind:class="{ equipamento: showEquipamento }">
+
+                            <section class="moduloEquipamento row" v-if="showEquipamento">
+                                <div class="row">
+                                    <div class="tipoEquipamento column columnMarginR">
+                                        <label for="nome">Tipo de Equipamento: </label>
+                                        <select id="tipoEquipamento" v-model="selectedForm.selectedTipoElemento" style="width: 500px;">
+                                            <option disabled selected>Selecione</option>
+                                            <option v-for="tipoEquipamento in subestacaoForm.tipoEquipamento" :key="tipoEquipamento">{{ tipoEquipamento }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="moduloEquipamentoQuantidade column">
+                                        <label for="regiao">Quantidade: </label>
                                 <input type="text" v-model="selectedForm.selectedQuantidadeEquipamento" style="width: 300px;">
                             </div>
                         </div>
@@ -154,8 +159,9 @@
                     </section>
                     <div class="tableModuloEquipamento" v-if="showEquipamento">
                         <TabelaComponent :items="tableModuloEquipamentoItens"
-                            :colunas="tableModuloEquipamentoColunas" />
+                        :colunas="tableModuloEquipamentoColunas" />
                     </div>
+                </div>
                     <hr>
                     <section class="salva-patio row" style="justify-content: flex-end; margin-top: 100px;">
                         <div class="column">
@@ -171,7 +177,7 @@
                             </div>
                         </div>
                     </section>
-
+                    
                     <div class="tablePatio">
                         <TabelaComponent :items="tablePatioItens" :colunas="tablePatioColunas" />
                     </div>
@@ -396,7 +402,7 @@ h3 {
 
 .subestacao {
     background-color: #f5f5f5;
-    padding: 3%;
+    padding: 6%;
 }
 
 label {
@@ -424,6 +430,14 @@ select {
 }
 option {
     font-size: 18px;
+}
+.dados-patio {
+    background-color: #ececec;
+    padding: 2%;
+}
+.manobra, .equipamento {
+    background-color: #e7e7e7;
+    padding: 2%;
 }
 button {
     background-color: #46b341;
