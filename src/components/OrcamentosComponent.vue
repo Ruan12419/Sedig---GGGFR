@@ -100,9 +100,12 @@
                                     <!-- -->
                                 </select>
                             </div>
+                            <div class="column" style="align-items: flex-end;">
                             <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
-                            icone de add
-                            <font-awesome-icon icon="add" :font-size="20" color="green" />
+                            <div class="botao-estilo">
+                            <font-awesome-icon icon="add" :font-size="20" color="white" />
+                            </div>
+                            </div>
                         </div>
                     </section>
                     <div class="tableModuloManobra" v-if="showManobra">
@@ -125,9 +128,12 @@
                             </div>
                         </div>
                         <div class="column">
+                        <div class="column" style="align-items: flex-end;">
                             <label for="addModuloDeManobra">Adicionar Módulo de Equipamento: </label>
-                            icone de add
-                            <font-awesome-icon icon="add" :font-size="20" color="green" />
+                            <div class="botao-estilo">
+                                <font-awesome-icon icon="add" :font-size="20" color="white" />
+                            </div>
+                            </div>
                         </div>
                     </section>
                     <div class="tableModuloEquipamento" v-if="showEquipamento">
