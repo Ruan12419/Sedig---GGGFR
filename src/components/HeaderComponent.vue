@@ -14,7 +14,7 @@
       <div alt="foto-perfil" srcset="" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;"></div>
       <div v-if="showDropdown" class="dropdown">
         <button>Perfil</button>
-        <button style="color: #FF0000;">Logout</button>
+        <button @click="$emit('logout')" style="color: #FF0000;"><router-link to="/login" class="nav-link">Logout</router-link></button>
       </div>
     </div>
     </header>

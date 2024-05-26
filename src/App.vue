@@ -1,12 +1,17 @@
 <template>
-  <Header />
-  <router-view />
+  <Header v-if="isLogin" @logout="isLogin = !isLogin" />
+  <router-view @logout="isLogin = !isLogin" />
 </template>
 
 <script>
 import Header from './components/HeaderComponent.vue'
 
 export default {
+  data() {
+    return {
+      isLogin: true,
+    };
+  },
   name: 'App',
   components: {
     Header,
