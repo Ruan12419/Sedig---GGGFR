@@ -1,24 +1,24 @@
 <template>
     <section class="row">
       <HeaderLateralComponent />
-      <section class="login column">
+      <section class="cadastrarNovaSenha column">
         <div class="title">
           <span class="to-recover">{{ title }}</span>
         </div>
-        <div class="loginBody column">
+        <div class="CNSBody column">
           <h5 class="title-h5">{{ message }}</h5>
           <p class="paragraph" v-if="showInput">{{ instructions }}</p>
           <div v-if="showInput">
             <input type="text" id="email" class="input-email column">
           </div>
-          <div class="botaoLogin" v-if="showInput">
+          <div class="botaoEnviarEmail" v-if="showInput">
             <div class="column" style="align-items: center">
               <div class="botao-estilo" @click="sendEmail">
                 <span class="nav-link">{{ buttonText }}</span>
               </div>
             </div>
           </div>
-          <div class="botaoLogin" v-else>
+          <div class="botaoTentarNovamente" v-else>
             <div class="column">
               <div class="botao-estilo tentarNovamente" @click="tryAgain">
                 <router-link to="/recuperarSenha" class="nav-link">Tentar novamente</router-link>
@@ -72,11 +72,6 @@ import HeaderLateralComponent from "./HeaderLateralComponent.vue";
 
 <style scoped>
 
-.login {
-    margin: auto;
-    margin-top: 10%;
-}
-
 .title {
     background-color: #F5FABF;
     border-top-left-radius: 15px;
@@ -90,7 +85,7 @@ span {
     padding: 20px;
 }
 
-.loginBody {
+.CNSBody {
     height: fit-content;
     width: 530px;
     background-color: #f5f5f5;
@@ -151,11 +146,6 @@ input {
     font-weight: bold;
 }
 
-.title-h5 {
-    font-size: 1em;
-    margin-right: auto;
-}
-
 .paragraph {
     font-weight: 600;
     margin-top: -5px;
@@ -164,28 +154,9 @@ input {
 .input-email {
     width: 100%;
 }
-.login {
+.cadastrarNovaSenha {
     margin: auto;
     margin-top: 10%;
-}
-
-.title {
-    background-color: #F5FABF;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    width: 563px;
-    padding: 2% 0%;
-    font-size: 22px;
-}
-
-span {
-    padding: 20px;
-}
-
-input {
-    height: 40px;
-    border: none;
-    margin-top: 30px;
 }
 
 .botao-estilo-2 {
@@ -200,12 +171,5 @@ input {
     background-color: #46b341;
     padding: 1px 20px;
     border-radius: 15px;
-}
-.line-2 {
-    text-align: center;
-}
-
-.line-3 {
-    align-items: center;
 }
 </style>
