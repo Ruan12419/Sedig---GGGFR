@@ -140,17 +140,7 @@ label {
     font-size: 22px;
 }
 
-.label-place {
-    font-size: 15px;
-    margin-top: 20px;
-}
-
-.input-selectMarginTop {
-    margin-top: 10px;
-}
-
-input,
-select {
+input {
     height: 40px;
     border: none;
     margin-top: 30px;
@@ -158,71 +148,10 @@ select {
     background-color: #FFF;
 }
 
-select {
-    width: 180px;
-}
-
-option {
-    font-size: 18px;
-}
-
-.dados-patio {
-    background-color: #ececec;
-    padding: 2%;
-}
-
-.manobra,
-.equipamento {
-    background-color: #e7e7e7;
-    padding: 2%;
-}
-
-button {
-    background-color: #46b341;
-    width: 40px;
-    color: #FFF;
-    font-size: 20px;
-    border: none;
-}
-
-.botao-estilo {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    background-color: #46b341;
-    padding: 1px 20px;
-    border-radius: 15px;
-}
-
-.botao-estilo-cancelar {
-    background-color: #b8b5b5;
-    margin-right: 30px;
-}
-
-.gerar-excel {
-    display: flex;
-    justify-content: center;
-    margin: 30px 35%;
-    background-color: #46b341;
-    padding: 15px 20px;
-    border-radius: 15px;
-}
-
-.salva-secaoDois {
-    margin-top: 100px;
-}
-
 .column {
     display: flex;
     flex-direction: column;
 }
-
-.columnMarginR {
-    margin-right: 80px;
-}
-
 .row {
     display: flex;
     flex-direction: row;
