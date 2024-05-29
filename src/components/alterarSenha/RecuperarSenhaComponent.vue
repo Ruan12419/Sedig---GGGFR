@@ -37,7 +37,7 @@
   </template>
   
   <script>
-import HeaderLateralComponent from "../HeaderLateralComponent.vue";
+import HeaderLateralComponent from "../headers/HeaderLateralComponent.vue";
 
   export default {
     name: "RecuperarSenhaComponent",
