@@ -6,6 +6,7 @@ import Login from '../components/LoginComponent.vue'
 import Cadastro from '../components/CadastroComponent.vue'
 import RecuperarSenha from '../components/RecuperarSenhaComponent.vue'
 import CadastrarNovaSenha from '../components/CadastrarNovaSenhaComponent.vue'
+import ConfirmarEmail from '../components/ConfirmarEmailComponent.vue'
 
 const routes = [
   { path: '/inicio', component: Home },
@@ -15,6 +16,7 @@ const routes = [
   { path: '/cadastro', component: Cadastro},
   { path: '/recuperarSenha', component: RecuperarSenha},
   { path: '/cadastrarNovaSenha', component: CadastrarNovaSenha}, 
+  { path: '/confirmarEmail', component: ConfirmarEmail}, 
 ]
 
 const router = createRouter({
