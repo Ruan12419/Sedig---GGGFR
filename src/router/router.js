@@ -5,6 +5,7 @@ import Insumos from '../components/InsumosComponent.vue'
 import Login from '../components/LoginComponent.vue'
 import Cadastro from '../components/CadastroComponent.vue'
 import RecuperarSenha from '../components/RecuperarSenhaComponent.vue'
+import CadastrarNovaSenha from '../components/CadastrarNovaSenhaComponent.vue'
 
 const routes = [
   { path: '/inicio', component: Home },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/login', component: Login},
   { path: '/cadastro', component: Cadastro},
   { path: '/recuperarSenha', component: RecuperarSenha},
+  { path: '/cadastrarNovaSenha', component: CadastrarNovaSenha}, 
 ]
 
 const router = createRouter({
