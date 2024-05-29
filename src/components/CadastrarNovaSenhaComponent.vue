@@ -59,7 +59,7 @@ export default {
     methods: {
         alteraSenha() {
             this.mudarSenha = false;
-            this.title = "Recuperar Senha";
+            this.title = "Senha recuperada com sucesso";
             this.message = "Sua senha foi alterada com sucesso!";
             this.instructions = "Agora você pode fazer login com sua nova senha. Lembre-se de manter sua senha segura e não compartilhá-la com ninguém.";
             this.footerMessage = "Se você não solicitou essa alteração de senha, entre em contato com nosso suporte imediatamente.";
