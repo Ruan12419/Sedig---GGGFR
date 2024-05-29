@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import HeaderLateralComponent from "./HeaderLateralComponent.vue";
+import HeaderLateralComponent from "../HeaderLateralComponent.vue";
 
 export default {
     name: "ConfirmarEmailComponent",
