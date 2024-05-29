@@ -1,8 +1,6 @@
 <template>
     <section class="row">
-        <section class="header column" style="align-items: center; justify-content: center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Eletrobras.png">
-        </section>
+        <HeaderLateralComponent />
         <section class="register column">
             <div class="title">
                 <span>Cadastro</span>
@@ -92,8 +90,13 @@
 </template>
 
 <script>
+import HeaderLateralComponent from "./HeaderLateralComponent.vue";
+
 export default {
     name: "RegisterComponent",
+    components: {
+        HeaderLateralComponent, 
+    },
     data() {
         return {
             cpf: ''
@@ -114,16 +117,6 @@ export default {
 </script>
 
 <style scoped>
-.header {
-    height: 115vh !important;
-    width: 350px;
-    background-color: #6BC9DB;
-}
-
-img {
-    width: 80%;
-    margin-bottom: 180px;
-}
 
 .register {
     margin: auto;

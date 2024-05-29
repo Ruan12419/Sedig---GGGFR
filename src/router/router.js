@@ -5,7 +5,6 @@ import Insumos from '../components/InsumosComponent.vue'
 import Login from '../components/LoginComponent.vue'
 import Cadastro from '../components/CadastroComponent.vue'
 import RecuperarSenha from '../components/RecuperarSenhaComponent.vue'
-import RecuperarSenha2 from '../components/RecuperarSenhaComponent2.vue'
 
 const routes = [
   { path: '/inicio', component: Home },
@@ -14,7 +13,6 @@ const routes = [
   { path: '/login', component: Login},
   { path: '/cadastro', component: Cadastro},
   { path: '/recuperarSenha', component: RecuperarSenha},
-  { path: '/recuperarSenha2', component: RecuperarSenha2}
 ]
 
 const router = createRouter({
@@ -22,4 +20,4 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default router;

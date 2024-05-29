@@ -1,61 +1,76 @@
 <template>
     <section class="row">
-        <section class="header column" style="align-items: center; justify-content: center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Eletrobras.png">
-        </section>
-        <section class="login column">
-            <div class="title">
-                <span class="to-recover">Recuperar Senha</span>
+      <HeaderLateralComponent />
+      <section class="login column">
+        <div class="title">
+          <span class="to-recover">{{ title }}</span>
+        </div>
+        <div class="loginBody column">
+          <h5 class="title-h5">{{ message }}</h5>
+          <p class="paragraph" v-if="showInput">{{ instructions }}</p>
+          <div v-if="showInput">
+            <input type="text" id="email" class="input-email column">
+          </div>
+          <div class="botaoLogin" v-if="showInput">
+            <div class="column" style="align-items: center">
+              <div class="botao-estilo" @click="sendEmail">
+                <span class="nav-link">{{ buttonText }}</span>
+              </div>
             </div>
-            <div class="loginBody column">    
-                            <h5 class="title-h5">Esqueceu sua senha? Não se preocupe, estamos aqui para te ajudar.</h5>
-                            <p class="paragraph">Por favor, insira o seu endereço de email abaixo. <br> Enviaremos um link para o seu email que permitirá <br> que você redefina sua senha.</p>
-                            <div>
-                        <input type="text" id="email" class="input-email">
-                    </div>
-                            <div class="botaoLogin">
-                                <div class="column" style="align-items: center">
-                        <div class="botao-estilo" @click="$emit('enviar')">
-                            <router-link to="/recuperarSenha2" class="nav-link">Enviar</router-link>
-                        </div>
-
-                    </div>
-                    
-                </div>
-                <div class="title-h6">
-                    <h6>Se você não receber o email em alguns minutos, verifique sua pasta de spam ou tente novamente.</h6>
-                </div>
-                </div>
-
-        </section>
+          </div>
+          <div class="botaoLogin" v-else>
+            <div class="column">
+              <div class="botao-estilo tentarNovamente" @click="tryAgain">
+                <router-link to="/recuperarSenha" class="nav-link">Tentar novamente</router-link>
+              </div>
+              <div class="botao-estilo-2" @click="login">
+                <router-link to="/login" class="nav-link">Login</router-link>
+              </div>
+            </div>
+          </div>
+          <div class="title-h6">
+            <h6>{{ footerMessage }}</h6>
+          </div>
+        </div>
+      </section>
     </section>
-</template>
+  </template>
+  
+  <script>
+import HeaderLateralComponent from "./HeaderLateralComponent.vue";
 
-<script>
-
-export default {
-    name: "LoginComponent",
+  export default {
+    name: "RecuperarSenhaComponent",
     components: {
+        HeaderLateralComponent, 
     },
     data() {
-        return {
-            showDropdown: false
-        }
+      return {
+        showInput: true,
+        title: "Recuperar Senha",
+        message: "Esqueceu sua senha? Não se preocupe, estamos aqui para te ajudar.",
+        instructions: "Por favor, insira o seu endereço de email abaixo. Enviaremos um link para o seu email que permitirá que você redefina sua senha.",
+        buttonText: "Enviar",
+        footerMessage: "Se você não receber o email em alguns minutos, verifique sua pasta de spam ou tente novamente."
+      };
+    },
+    methods: {
+      sendEmail() {
+        this.showInput = false;
+        this.title = "Recuperar Senha";
+        this.message = "Obrigado! Se o endereço de email que você forneceu estiver associado a uma conta em nosso sistema, nós enviaremos um link de recuperação de senha para ele.";
+        this.footerMessage = "Se você não receber o email em alguns minutos, verifique sua pasta de spam ou tente novamente.";
+      },
+      tryAgain() {
+        this.showInput = true;
+      },
+      login() {
+      }
     }
-}
-</script>
+  };
+  </script>
 
 <style scoped>
-.header {
-    height: 100vh !important;
-    width: 350px;
-    background-color: #6BC9DB;
-}
-
-img {
-    width: 80%;
-    margin-bottom: 180px;
-}
 
 .login {
     margin: auto;
@@ -76,7 +91,7 @@ span {
 }
 
 .loginBody {
-    height: 330px;
+    height: fit-content;
     width: 530px;
     background-color: #f5f5f5;
     padding: 3%;
@@ -92,11 +107,28 @@ input {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
     width: 70px;
     height: 40px;
     background-color: #46b341;
     padding: 1px 20px;
     border-radius: 15px;
+}
+
+.tentarNovamente {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    margin-left: 80px;
+    width: 130px;
+    height: 40px;
+    background-color: rgb(181, 181, 181);
+    padding: 1px 20px;
+    border-radius: 15px;
+}
+.tentarNovamente span {
+    padding: 0;
 }
 
 .nav-link {
@@ -130,8 +162,50 @@ input {
 }
 
 .input-email {
-    width: 55vh;
-    height: 35px;
-    margin-bottom: 30px;
+    width: 100%;
+}
+.login {
+    margin: auto;
+    margin-top: 10%;
+}
+
+.title {
+    background-color: #F5FABF;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 563px;
+    padding: 2% 0%;
+    font-size: 22px;
+}
+
+span {
+    padding: 20px;
+}
+
+input {
+    height: 40px;
+    border: none;
+    margin-top: 30px;
+}
+
+.botao-estilo-2 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 80px;
+    margin-top: -42px;
+    width: 130px;
+    height: 40px;
+    background-color: #46b341;
+    padding: 1px 20px;
+    border-radius: 15px;
+}
+.line-2 {
+    text-align: center;
+}
+
+.line-3 {
+    align-items: center;
 }
 </style>
