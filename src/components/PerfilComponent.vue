@@ -5,7 +5,7 @@
             <div class="secoes row">
                 <section class="secaoUm">
                     <div class="column" style="align-items: center;">
-                        <img src="" alt="">
+                        <img src="../assets/PerfilADM.png" alt="">
                         <h2>João Silva Santos</h2>
                         <div class="chavePasse column">
                             <span>Chave Passe: </span>
