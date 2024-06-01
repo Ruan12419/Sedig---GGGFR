@@ -8,8 +8,8 @@
             <div class="registerBody column">
                 <label for="nomeCompleto">Nome Completo <span class="asterisk">*</span></label>
                 <label for="nome-ex" class="label-place">Ex: João Silva Santos</label>
-                <input type="text" id="nomeCompleto" class="input-nome">
-                
+                <input type="text" id="nomeCompleto" v-model="nomeCompleto" class="input-nome">
+
                 <div class="row">
                     <div class="column">
                         <label for="cpf">CPF <span class="asterisk">*</span></label>
@@ -18,20 +18,21 @@
                     </div>
                     <div class="column-chavePasse">
                         <label for="chavePasse"> <span class="name-chavePasse">Chave Passe</span></label>
-                        <input type="text" id="chavePasse" class="input-chavePasse" maxlength="14">
+                        <input type="text" id="chavePasse" v-model="chavePasse" class="input-chavePasse" maxlength="14">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="column">
                         <label for="email">Email <span class="asterisk">*</span></label>
-                        <input type="text" id="email" class="input-email">
+                        <input type="text" id="email" v-model="email" class="input-email">
                     </div>
                     <div class="column-estado">
-                        <label for="estado"><span class="name-estado">Estado <span class="asterisk">*</span></span></label>
+                        <label for="estado"><span class="name-estado">Estado <span
+                                    class="asterisk">*</span></span></label>
                         <br>
                         <label for="uf" class="label-place-3">UF</label>
-                        <select id="estado" class="input-uf">
+                        <select id="estado" v-model="estado" class="input-uf">
                             <option disabled selected></option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
@@ -64,20 +65,21 @@
                     </div>
                     <div class="column-estado">
                         <label for="cidade" class="label-place-2">Cidade</label>
-                                <input type="text" id="cidade" class="input-cidade">
-                            </div>
-                        </div>
-                        
-                        <label for="senha" class="senha">Senha <span class="asterisk">*</span></label>
-                        <input type="password" id="senha" class="input-senha">
-                        
-                        <label for="confirmarSenha" class="confirmar-senha">Confirmar Senha <span class="asterisk">*</span></label>
-                <input type="password" id="confirmarSenha" class="input-confirmarSenha">
-                
+                        <input type="text" v-model="cidade" id="cidade" class="input-cidade">
+                    </div>
+                </div>
+
+                <label for="senha" class="senha">Senha <span class="asterisk">*</span></label>
+                <input type="password" id="senha" v-model="senha" class="input-senha">
+
+                <label for="confirmarSenha" class="confirmar-senha">Confirmar Senha <span
+                        class="asterisk">*</span></label>
+                <input type="password" id="confirmarSenha" v-model="confirmarSenha" class="input-confirmarSenha">
+
                 <div class="botaoRegister">
                     <div class="column" style="align-items: center">
-                        <div class="botao-estilo" @click="$emit('register')">
-                            <router-link to="/inicio" class="nav-link">Cadastrar-se</router-link>
+                        <div class="botao-estilo" @click="cadastrar">
+                            <span class="nav-link">Cadastrar-se</span>
                         </div>
                     </div>
                 </div>
@@ -90,34 +92,66 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderLateralComponent from "../headers/HeaderLateralComponent.vue";
 
 export default {
     name: "RegisterComponent",
     components: {
-        HeaderLateralComponent, 
+        HeaderLateralComponent,
     },
     data() {
         return {
-            cpf: ''
+            cpf: '',
+            nomeCompleto: '',
+            chavePasse: '',
+            email: '',
+            estado: '',
+            cidade: '',
+            senha: '',
+            confirmarSenha: ''
         };
     },
     methods: {
         formatarCPF() {
             let cpfLimpo = this.cpf.replace(/[^\d]/g, '');
-            
             cpfLimpo = cpfLimpo.substring(0, 11);
-            
             cpfLimpo = cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-            
             this.cpf = cpfLimpo;
+        },
+        cadastrar() {
+            if (this.senha !== this.confirmarSenha) {
+                alert("As senhas não coincidem");
+                return;
+            }
+
+            const dadosCadastro = {
+                nomeCompleto: this.nomeCompleto,
+                cpf: this.cpf,
+                chavePasse: this.chavePasse,
+                email: this.email,
+                estado: this.estado,
+                cidade: this.cidade,
+                senha: this.senha
+            };
+
+            axios.post('http://127.0.0.1:8000/cadastro', dadosCadastro)
+                .then(response => {
+                    console.log(response.data);
+                    if (response.status === 201) {
+                        this.$router.push('/login'); 
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     }
+
 };
 </script>
 
 <style scoped>
-
 .register {
     margin: auto;
     margin-top: 3%;
@@ -147,7 +181,8 @@ label {
     color: #0D9488;
 }
 
-input, select {
+input,
+select {
     border: none;
 }
 
@@ -258,7 +293,7 @@ input, select {
     height: 32px;
     margin-left: 45px;
     margin-top: 10px;
-    margin-bottom: 30px;  
+    margin-bottom: 30px;
 }
 
 .input-cidade {

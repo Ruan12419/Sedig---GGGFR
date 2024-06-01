@@ -1,22 +1,29 @@
 <template>
-  <Header v-if="isLogin" @logout="isLogin = !isLogin" />
-  <router-view @logout="isLogin = !isLogin" />
+  <div id="app">
+    <Header v-if="isAuthenticated" @logout="logout" />
+    <router-view @logout="logout" />
+  </div>
 </template>
 
 <script>
-import Header from './components/headers/HeaderComponent.vue'
+import Header from './components/headers/HeaderComponent.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  data() {
-    return {
-      isLogin: true,
-    };
-  },
   name: 'App',
   components: {
     Header,
-  }
-}
+  },
+  computed: {
+    ...mapState(['isAuthenticated']),
+  },
+  methods: {
+    ...mapActions(['checkAuth', 'logout']),
+  },
+  created() {
+    this.checkAuth();
+  },
+};
 </script>
 
 <style>

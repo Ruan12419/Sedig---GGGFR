@@ -7,18 +7,17 @@
             </div>
             <div class="loginBody column">
                 <label for="email">Email</label>
-                <input type="text" id="email">
+                <input type="text" id="email" v-model="email">
                 <label for="senha" class="inputtMarginTop">Senha</label>
-                <input type="text" id="senha">
+                <input type="password" id="senha" v-model="senha">
                 <div class="esqueceuSenha row" style="justify-content: flex-end">
                     <router-link to="/recuperarSenha" class="nav-link-2">Esqueceu a senha?</router-link>
                 </div>
                 <div class="botaoLogin">
                     <div class="column" style="align-items: center">
-                        <div class="botao-estilo" @click="$emit('logout')">
-                            <router-link to="/inicio" class="nav-link">Login</router-link>
+                        <div class="botao-estilo" @click="login">
+                            <span class="nav-link">Login</span>
                         </div>
-
                     </div>
                 </div>
                 <div class="naoPossuiCadastro column" style="align-items: center;">
@@ -30,23 +29,44 @@
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderLateralComponent from "../headers/HeaderLateralComponent.vue"
 
 export default {
-    name: "LoginComponent", 
+    name: "LoginComponent",
     components: {
-        HeaderLateralComponent, 
+        HeaderLateralComponent,
     },
     data() {
         return {
-            showDropdown: false
+            showDropdown: false, 
+            email: "", 
+            senha: "", 
+        }
+    }, 
+    methods: {
+        login() {
+            const dadosLogin = {
+                email: this.email,
+                senha: this.senha
+            };
+
+            axios.post('http://127.0.0.1:8000/login', dadosLogin)
+                .then(response => {
+                    if (response.status === 200) {
+                        this.$store.commit('SET_AUTHENTICATED', true); 
+                        this.$router.push('/inicio');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     }
 }
 </script>
 
 <style scoped>
-
 .login {
     margin: auto;
     margin-top: 10%;
