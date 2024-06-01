@@ -138,7 +138,7 @@
                                 <div class="row">
                                     <div class="tipoEquipamento column columnMarginR">
                                         <label for="nome">Tipo de Equipamento: </label>
-                                        <select id="tipoEquipamento" v-model="selectedForm.selectedTipoElemento" style="width: 500px;">
+                                        <select id="tipoEquipamento" v-model="selectedForm.selectedTipoEquipamento" style="width: 500px;">
                                             <option disabled selected>Selecione</option>
                                             <option v-for="tipoEquipamento in subestacaoForm.tipoEquipamento" :key="tipoEquipamento">{{ tipoEquipamento }}</option>
                                         </select>
@@ -247,7 +247,7 @@ export default {
 adicionarModuloEquipamento() {
   this.tableModuloEquipamentoItens = []; 
   this.tableModuloEquipamentoItens.push({
-    elemento: this.selectedForm.selectedTipoElemento,
+    elemento: this.selectedForm.selectedTipoEquipamento,
     quantidade: this.selectedForm.selectedQuantidadeEquipamento,
     acao: '', 
   });
@@ -287,7 +287,7 @@ adicionarSubestacao() {
                 selectedTensaoPrimaria: null, 
                 selectedTipo: "", 
                 selectedQuantidadeManobra: null,
-                selectedTipoElemento: null, 
+                selectedTipoEquipamento: null, 
                 selectedQuantidadeEquipamento: null,
             }, 
             subestacaoForm: {
@@ -333,11 +333,11 @@ adicionarSubestacao() {
                 { key: 'acao', label: 'Ação' },
             ],
             tableModuloEquipamentoItens: [
-                { elemento: "", quantidade: "", acao: "" },
-                { elemento: "", quantidade: "", acao: "" },
+                { equipamento: "", quantidade: "", acao: "" },
+                { equipamento: "", quantidade: "", acao: "" },
             ],
             tableModuloEquipamentoColunas: [
-                { key: 'elemento', label: 'Elemento' },
+                { key: 'equipamento', label: 'Equipamento' },
                 { key: 'quantidade', label: 'Quantidade' },
                 { key: 'acao', label: 'Ação' },
             ],
@@ -445,6 +445,7 @@ button {
     color: #FFF;
     font-size: 20px;
     border: none;
+    border-radius: 15px;
 }
 
 .botao-estilo {
