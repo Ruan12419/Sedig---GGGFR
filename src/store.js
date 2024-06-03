@@ -37,5 +37,6 @@ export default createStore({
   },
   getters: {
     isAdmin: state => state.isAdmin, 
+    isAuthenticated: state => state.isAuthenticated, 
   },
 });

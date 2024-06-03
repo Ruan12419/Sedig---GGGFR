@@ -25,7 +25,8 @@
               <option v-for="tensao in insumosForm.tensaoPrimaria" :key="tensao">{{ tensao }}</option>
             </select>
           </div>
-          <div class="column" v-if="selectedForm.selectedTensaoPrimaria && selectedForm.selectedLocal === 'Modulo de Manobra'">
+          <div class="column"
+            v-if="selectedForm.selectedTensaoPrimaria && selectedForm.selectedLocal === 'Modulo de Manobra'">
             <label for="arranjo">Arranjo: </label>
             <select id="arranjo" v-model="selectedForm.selectedArranjo" class="input-selectMarginTop">
               <option disabled selected>Selecione</option>
@@ -54,7 +55,20 @@
         </section>
         <hr>
         <div class="tableInsumos">
-          <TabelaComponent :items="tableInsumosItens" :colunas="tableInsumosColunas" />
+          <TabelaComponent :items="tableInsumosItens" :colunas="tableInsumosColunas"
+            :editable-insumo-id="editableInsumoId">
+            <template v-slot:acao="{ item }">
+              <td style="width: 100%;">
+                <span class="icon-container" v-if="editableInsumoId !== item.id">
+                  <font-awesome-icon icon="edit" :font-size="30" color="green" @click="editItem(item)" />
+                </span>
+                <span class="icon-container" v-if="editableInsumoId !== item.id">
+                  <font-awesome-icon icon="trash-alt" :font-size="30" color="red" @click="deleteItem(item.id)" />
+                </span>
+                <button @click="saveItem(item)" v-if="editableInsumoId === item.id">Salvar</button>
+              </td>
+            </template>
+          </TabelaComponent>
         </div>
         <section class="total-cost row" v-if="tableInsumosItens.length > 0">
           <div class="column">
@@ -68,6 +82,7 @@
 </template>
 
 <script>
+import http from "@/http"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import TabelaComponent from "./TabelaComponent.vue"
@@ -82,9 +97,13 @@ export default {
     TabelaComponent,
   },
   methods: {
-    adicionarInsumo() {
+    generateId() {
+      return this.nextId++;
+    },
+    /*adicionarInsumo() {
       if (this.selectedForm.selectedTipoInsumo && this.selectedForm.selectedNome && this.selectedForm.selectedQuantidade && this.selectedForm.selectedPrecoUnitario) {
         this.tableInsumosItens.push({
+          id: this.generateId(),
           tipoInsumo: this.selectedForm.selectedTipoInsumo,
           nome: this.selectedForm.selectedNome,
           local: this.selectedForm.selectedLocal,
@@ -96,7 +115,7 @@ export default {
       } else {
         alert('Por favor, preencha todos os campos antes de adicionar um insumo.');
       }
-    },
+    },*/
     calcularCusto(quantidade, precoUnitario) {
       const total = (quantidade * precoUnitario).toFixed(2);
       return parseFloat(total);
@@ -108,6 +127,65 @@ export default {
       this.selectedForm.selectedQuantidade = null;
       this.selectedForm.selectedPrecoUnitario = null;
     },
+    editItem(item) {
+      this.editableInsumoId = item.id;
+      this.editableInsumo = { ...item };
+    },
+    adicionarInsumo() {
+      if (this.selectedForm.selectedTipoInsumo && this.selectedForm.selectedNome && this.selectedForm.selectedQuantidade && this.selectedForm.selectedPrecoUnitario) {
+        const novoInsumo = {
+          tipo_insumo: this.selectedForm.selectedTipoInsumo,
+          nome: this.selectedForm.selectedNome,
+          local: this.selectedForm.selectedLocal,
+          quantidade: this.selectedForm.selectedQuantidade,
+          preco_unitario: this.selectedForm.selectedPrecoUnitario,
+          custo: this.calcularCusto(this.selectedForm.selectedQuantidade, this.selectedForm.selectedPrecoUnitario),
+        };
+        http.post('/insumos/add/', novoInsumo)
+          .then(response => {
+            console.log(response.data.mensagem);
+            this.tableInsumosItens.push({ ...novoInsumo, id: this.generateId() });
+            this.resetForm();
+          })
+          .catch(error => {
+            console.error('Erro ao adicionar insumo:', error);
+          });
+      } else {
+        alert('Por favor, preencha todos os campos antes de adicionar um insumo.');
+      }
+    },
+    saveItem(insumo) {
+      http.post(`/insumos/update/${insumo.id}/`, insumo)
+        .then(response => {
+          console.log(response.data.mensagem);
+          this.editableInsumoId = null;
+        })
+        .catch(error => {
+          console.error('Erro ao salvar insumo:', error);
+        });
+    },
+    deleteItem(insumoId) {
+      http.delete(`/insumos/delete/${insumoId}`)
+        .then(response => {
+          console.log(response.data.mensagem);
+          this.tableInsumosItens = this.tableInsumosItens.filter(item => item.id !== insumoId);
+        })
+        .catch(error => {
+          console.error('Erro ao deletar insumo:', error);
+        });
+    },
+    listarInsumos() {
+      http.get('/insumos/')
+        .then(response => {
+          this.tableInsumosItens = response.data;
+        })
+        .catch(error => {
+          console.error('Erro ao listar insumos:', error);
+        });
+    },
+  },
+  created() {
+    this.listarInsumos();
   },
   computed: {
     custoTotal() {
@@ -141,13 +219,16 @@ export default {
       },
       tableInsumosItens: [],
       tableInsumosColunas: [
-        { key: 'tipoInsumo', label: 'Tipo de Insumo' },
+        { key: 'tipo_insumo', label: 'Tipo de Insumo' },
         { key: 'local', label: 'Local' },
         { key: 'nome', label: 'Nome' },
         { key: 'quantidade', label: 'Quantidade' },
-        { key: 'precoUnitario', label: 'Preço Unitário (R$)' },
+        { key: 'preco_unitario', label: 'Preço Unitário (R$)' },
         { key: 'custo', label: 'Custo (R$)' },
       ],
+      nextId: 1,
+      editableInsumoId: null,
+      editableInsumo: {},
     }
   }
 }

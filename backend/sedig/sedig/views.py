@@ -95,3 +95,136 @@ def usuario_view(request):
         'nome': usuario.nome_completo
     }
     return JsonResponse(data)
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+from .models.orcamentos_model import Orcamento, Patio, ModuloManobra, ModuloEquipamento
+import json
+
+@method_decorator(csrf_exempt, name='dispatch')
+class OrcamentoCompletoView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        
+        orcamento = Orcamento(
+            nome_orcamento=data['nomeOrcamento'],
+            nome_subestacao=data['nomeSubestacao'],
+            macroregiao=data['macroregiao'],
+            estado=data['estado'],
+            ano_referencia=data['ano_referencia'],
+            mes_referencia=data['mes_referencia'],
+            tipo_instalacao=data['tipo_instalacao']
+        )
+        orcamento.save()
+
+        patio = Patio(
+            orcamento=orcamento,
+            tensao_primaria=float(data['tensaoPrimaria']),
+            arranjo=data['arranjo']
+        )
+        patio.save()
+        print(data['modulosManobra'])
+        for modulo_manobra_data in data['modulosManobra']:
+            ModuloManobra(
+                patio=patio,
+                sincronizacao_disjuntor=modulo_manobra_data['sincDisjuntor'],
+                tipo_aplicacao=modulo_manobra_data['tipoAplicacao'],
+                quantidade=modulo_manobra_data['quantidade'],
+                tipo=modulo_manobra_data['tipo']
+            ).save()
+
+        for modulo_equipamento_data in data['modulosEquipamento']:
+            ModuloEquipamento(
+                patio=patio,
+                tipo_equipamento=modulo_equipamento_data['equipamento'],
+                quantidade=modulo_equipamento_data['quantidade']
+            ).save()
+
+        return JsonResponse({'mensagem': 'Orçamento completo adicionado com sucesso!'}, status=201)
+
+
+
+@login_required
+def lista_orcamentos(request):
+    orcamentos_data = []
+    for orcamento in Orcamento.objects.all():
+        patios = Patio.objects.filter(orcamento=orcamento)
+        modulos_count = sum(ModuloManobra.objects.filter(patio=patio).count() for patio in patios) + \
+                        sum(ModuloEquipamento.objects.filter(patio=patio).count() for patio in patios)
+        orcamentos_data.append({
+            'id': orcamento.id, 
+            'nomeSubestacao': orcamento.nome_subestacao,
+            'dataCotacao': f"{orcamento.ano_referencia}/{orcamento.mes_referencia}",
+            'qtdPatios': patios.count(),
+            'qtdModulos': modulos_count,
+            'acao': '' 
+        })
+
+    return JsonResponse(orcamentos_data, safe=False)
+
+
+from django.views.decorators.http import require_http_methods
+import json
+
+@require_http_methods(["POST"])
+@csrf_exempt
+def edit_orcamento(request, orcamento_id):
+    try:
+        data = json.loads(request.body)
+        orcamento = Orcamento.objects.get(id=orcamento_id)
+        # Atualize os campos do orçamento com os dados recebidos
+        orcamento.nome_subestacao = data.get('nomeSubestacao', orcamento.nome_subestacao)
+        # ... atualize outros campos conforme necessário ...
+        orcamento.save()
+        return JsonResponse({'mensagem': 'Orçamento atualizado com sucesso!'})
+    except Orcamento.DoesNotExist:
+        return JsonResponse({'mensagem': 'Orçamento não encontrado.'}, status=404)
+
+@require_http_methods(["DELETE"])
+@csrf_exempt
+def delete_orcamento(request, orcamento_id):
+    try:
+        orcamento = Orcamento.objects.get(id=orcamento_id)
+        orcamento.delete()
+        return JsonResponse({'mensagem': 'Orçamento deletado com sucesso!'})
+    except Orcamento.DoesNotExist:
+        return JsonResponse({'mensagem': 'Orçamento não encontrado.'}, status=404)
+
+from .models.insumos_model import Insumo
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ListaInsumosView(View):
+    def get(self, request):
+        insumos = list(Insumo.objects.values())
+        print(insumos)
+        return JsonResponse(insumos, safe=False)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AdicionaInsumoView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        insumo = Insumo(
+            tipo_insumo=data['tipo_insumo'],
+            nome=data['nome'],
+            local=data['local'],
+            quantidade=data['quantidade'],
+            preco_unitario=data['preco_unitario'],
+            custo=data['custo']
+        )
+        insumo.save()
+        return JsonResponse({'mensagem': 'Insumo adicionado com sucesso!'}, status=201)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AtualizaInsumoView(View):
+    def post(self, request, id):
+        data = json.loads(request.body)
+        Insumo.objects.filter(id=id).update(**data)
+        return JsonResponse({'mensagem': 'Insumo atualizado com sucesso!'}, status=200)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class DeletaInsumoView(View):
+    def delete(self, request, id):
+        insumo = Insumo.objects.get(id=id)
+        insumo.delete()
+        return JsonResponse({'mensagem': 'Insumo deletado com sucesso!'}, status=200)

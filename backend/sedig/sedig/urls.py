@@ -25,4 +25,12 @@ urlpatterns = [
      path('api/auth/status', views.check_authentication, name='check_authentication'),
      path('logout', views.logout_view, name='logout'),
      path('usuario', views.usuario_view, name='usuario'),
+     path('cadastrarOrcamento', views.OrcamentoCompletoView.as_view(), name='cadastrarOrcamento'),
+     path('orcamentos', views.lista_orcamentos, name='lista_orcamentos'),
+     path('orcamentos/edit/<int:orcamento_id>/', views.edit_orcamento, name='edit_orcamento'),
+     path('orcamentos/delete/<int:orcamento_id>/', views.delete_orcamento, name='delete_orcamento'),
+     path('insumos/', views.ListaInsumosView.as_view(), name='lista_insumos'),
+     path('insumos/add/', views.AdicionaInsumoView.as_view(), name='adiciona_insumo'),
+     path('insumos/update/<int:id>/', views.AtualizaInsumoView.as_view(), name='atualiza_insumo'),
+     path('insumos/delete/<int:id>/', views.DeletaInsumoView.as_view(), name='deleta_insumo'),
 ]
