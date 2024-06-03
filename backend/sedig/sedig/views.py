@@ -106,6 +106,7 @@ import json
 class OrcamentoCompletoView(View):
     def post(self, request):
         data = json.loads(request.body)
+        usuario = request.user
         
         orcamento = Orcamento(
             nome_orcamento=data['nomeOrcamento'],
@@ -114,7 +115,8 @@ class OrcamentoCompletoView(View):
             estado=data['estado'],
             ano_referencia=data['ano_referencia'],
             mes_referencia=data['mes_referencia'],
-            tipo_instalacao=data['tipo_instalacao']
+            tipo_instalacao=data['tipo_instalacao'],
+            usuario=usuario
         )
         orcamento.save()
 
@@ -148,7 +150,8 @@ class OrcamentoCompletoView(View):
 @login_required
 def lista_orcamentos(request):
     orcamentos_data = []
-    for orcamento in Orcamento.objects.all():
+    usuario = request.user
+    for orcamento in Orcamento.objects.filter(usuario=usuario):
         patios = Patio.objects.filter(orcamento=orcamento)
         modulos_count = sum(ModuloManobra.objects.filter(patio=patio).count() for patio in patios) + \
                         sum(ModuloEquipamento.objects.filter(patio=patio).count() for patio in patios)
