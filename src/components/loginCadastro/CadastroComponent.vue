@@ -16,7 +16,7 @@
                         <label for="cpf-ex" class="label-place">Ex: xxx.xxx.xxx-xx</label>
                         <input type="text" id="cpf" v-model="cpf" @input="formatarCPF" maxlength="14" class="input-cpf">
                     </div>
-                    <div class="column-chavePasse">
+                    <div class="column-chavePasse" style="display: none;">
                         <label for="chavePasse"> <span class="name-chavePasse">Chave Passe</span></label>
                         <input type="text" id="chavePasse" v-model="chavePasse" class="input-chavePasse" maxlength="14">
                     </div>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import http from '@/http';
 import HeaderLateralComponent from "../headers/HeaderLateralComponent.vue";
 
 export default {
@@ -135,11 +135,11 @@ export default {
                 senha: this.senha
             };
 
-            axios.post('http://127.0.0.1:8000/cadastro', dadosCadastro)
+            http.post('/cadastro', dadosCadastro)
                 .then(response => {
                     console.log(response.data);
                     if (response.status === 201) {
-                        this.$router.push('/login'); 
+                        this.$router.push('/login');
                     }
                 })
                 .catch(error => {

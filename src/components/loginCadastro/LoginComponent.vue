@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import http from '@/http';
 import HeaderLateralComponent from "../headers/HeaderLateralComponent.vue"
 
 export default {
@@ -51,16 +51,20 @@ export default {
                 senha: this.senha
             };
 
-            axios.post('http://127.0.0.1:8000/login', dadosLogin)
-                .then(response => {
-                    if (response.status === 200) {
-                        this.$store.commit('SET_AUTHENTICATED', true); 
-                        this.$router.push('/inicio');
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
+            http.post('/login', dadosLogin)
+        .then(response => {
+            if (response.status === 200) {
+                const sessionid = response.headers['set-cookie'];
+                localStorage.setItem('sessionid', sessionid);
+
+                this.$store.dispatch('checkAuth').then(() => {
+                    this.$router.push('/inicio');
                 });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
         }
     }
 }

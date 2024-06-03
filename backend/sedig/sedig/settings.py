@@ -30,10 +30,14 @@ ALLOWED_HOSTS = []
 # Configuração do CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    "http://127.0.0.1:8080", 
 ]
 
-AUTHENTICATION_BACKENDS = ['sedig.autenticacao.UsuarioBackend']
+CORS_ALLOW_CREDENTIALS = True
 
+
+AUTHENTICATION_BACKENDS = ['sedig.autenticacao.UsuarioBackend']
+AUTH_USER_MODEL = 'sedig.Usuario'
 
 
 # Application definition

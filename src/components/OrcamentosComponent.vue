@@ -4,6 +4,14 @@
             <h1>Cadastrar Orçamentos</h1>
             <section class="subestacao">
                 <section class="row">
+                    <div class="column" style="width: 25%;">
+                        <div class="nomeOrcamento column marginBottom">
+                            <label for="nomeOrcamento">Nome do Orçamento: </label>
+                            <input type="text" v-model="selectedForm.selectedNomeOrcamento">
+                        </div>
+                    </div>
+                </section>
+                <section class="row">
                     <div class="column">
                         <div class="nomeSubestacao column marginBottom">
                             <label for="nome">Nome da Subestação: </label>
@@ -13,7 +21,8 @@
                         <div class="row">
                             <div class="column columnMarginR">
                                 <label for="estado" class="label-place">Macroregião</label>
-                                <select id="macroregiao" v-model="selectedForm.selectedMacroregiao" class="input-selectMarginTop">
+                                <select id="macroregiao" v-model="selectedForm.selectedMacroregiao"
+                                    class="input-selectMarginTop">
                                     <option disabled selected>Selecione</option>
                                     <option v-for="regiao in subestacaoForm.macroregiao" :key="regiao">{{ regiao }}
                                     </option>
@@ -26,7 +35,7 @@
                                     <option
                                         v-for="estado in (estadosPorMacroregiao[selectedForm.selectedMacroregiao] || []).slice().sort((a, b) => a === 'Todos' ? -1 : b === 'Todos' ? 1 : a === 'Nenhum' ? -1 : b === 'Nenhum' ? 1 : a.localeCompare(b))"
                                         :key="estado">{{ estado }}</option>
-                                    </select>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -52,7 +61,8 @@
                         <div class="tipoInstSub marginBottom">
                             <select id="tipoInstalacao">
                                 <option disabled selected>Selecione</option>
-                                <option v-for="tipoInstalacao in subestacaoForm.tipoInstalacao" :key="tipoInstalacao">{{ tipoInstalacao }}</option>
+                                <option v-for="tipoInstalacao in subestacaoForm.tipoInstalacao" :key="tipoInstalacao">{{
+                                    tipoInstalacao }}</option>
                             </select>
                         </div>
                     </div>
@@ -65,17 +75,22 @@
                             <div class="tensaoPrimaria column columnMarginR">
                                 <label for="tensaoPrimaria">Tensão Primária: </label>
                                 <label for="tensaoPrimaria" class="label-place">kV</label>
-                                <select id="tensaoPrimaria" v-model="selectedForm.selectedTensaoPrimaria" class="input-selectMarginTop">
+                                <select id="tensaoPrimaria" v-model="selectedForm.selectedTensaoPrimaria"
+                                    class="input-selectMarginTop">
                                     <option disabled selected>Selecione</option>
-                                    <option v-for="tensaoPrimaria in subestacaoForm.tensaoPrimaria" :key="tensaoPrimaria">{{ tensaoPrimaria }}</option>
+                                    <option v-for="tensaoPrimaria in subestacaoForm.tensaoPrimaria"
+                                        :key="tensaoPrimaria">{{ tensaoPrimaria }}</option>
                                 </select>
                             </div>
                             <div class="arranjo column">
                                 <label for="arranjo">Arranjo: </label>
                                 <label for="tensaoPrimaria" class="label-place">kV</label>
-                                <select id="arranjo" v-model="selectedForm.selectedArranjo" class="input-selectMarginTop">
+                                <select id="arranjo" v-model="selectedForm.selectedArranjo"
+                                    class="input-selectMarginTop">
                                     <option disabled selected>Selecione</option>
-                                    <option v-for="tensaoPrimaria in subestacaoForm.arranjo[selectedForm.selectedTensaoPrimaria]" :key="tensaoPrimaria">{{ tensaoPrimaria }}</option>
+                                    <option
+                                        v-for="tensaoPrimaria in subestacaoForm.arranjo[selectedForm.selectedTensaoPrimaria]"
+                                        :key="tensaoPrimaria">{{ tensaoPrimaria }}</option>
                                 </select>
                             </div>
                         </div>
@@ -84,7 +99,7 @@
                     <h3 @click="showManobra = !showManobra">
                         Módulo de Manobra <button>{{ showManobra ? '^' : '>' }}</button>
                     </h3>
-                    <div v-bind:class="{manobra: showManobra}">
+                    <div v-bind:class="{ manobra: showManobra }">
 
                         <section class="moduloManobra row" v-if="showManobra">
                             <div class="column">
@@ -93,75 +108,80 @@
                                         <label for="nome">Sincronização Disjuntor: </label>
                                         <select id="sincDisjuntor">
                                             <option disabled selected>Selecione</option>
-                                            <option v-for="sincDisjuntor in subestacaoForm.sincDisjuntor" :key="sincDisjuntor">{{ sincDisjuntor }}</option>
+                                            <option v-for="sincDisjuntor in subestacaoForm.sincDisjuntor"
+                                                :key="sincDisjuntor">{{ sincDisjuntor }}</option>
                                         </select>
                                     </div>
-<div class="tipoAplicacao column marginBottom">
-<label for="regiao">Tipo Aplicação: </label>
-<select id="tipoAplicacao">
-    <option disabled selected>Selecione</option>
-    <option v-for="tipoAplicacao in subestacaoForm.tipoAplicacao" :key="tipoAplicacao">{{ tipoAplicacao }}</option>
-</select>
-</div>
-</div>
-<div class="moduloManobraQuantidade column">
-    <label for="regiao">Quantidade: </label>
-    <input type="text" v-model="selectedForm.selectedQuantidadeManobra">
-</div>
-</div>
-<div class="column" style="width: 35%">
-    <div class="moduloManobraTipo column marginBottom">
-        <label for="nome">Tipo: </label>
-        <select id="tipo" v-model="selectedForm.selectedTipo" style="width: 100%;">
-            <option disabled selected>Selecione</option>
-            <option v-for="tipo in subestacaoForm.tipo" :key="tipo">{{ tipo }}</option>
-        </select>
-    </div>
-    <div class="column" style="align-items: flex-end;">
-        <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
-        <div class="botao-estilo" @click="adicionarModuloManobra">
-            <font-awesome-icon icon="add" :font-size="30" color="white" />
-        </div>
-    </div>
-</div>
-</section>
-<div class="tableModuloManobra" v-if="showManobra">
-    <TabelaComponent :items="tableModuloManobraItens" :colunas="tableModuloManobraColunas" />
-</div>
-</div>
-<hr>
-                    <h3 @click="showEquipamento = !showEquipamento">Módulo de Equipamento <button>{{ showEquipamento ?
-                        '^' : '>' }}</button></h3>
-                        <div v-bind:class="{ equipamento: showEquipamento }">
-
-                            <section class="moduloEquipamento row" v-if="showEquipamento">
-                                <div class="row">
-                                    <div class="tipoEquipamento column columnMarginR">
-                                        <label for="nome">Tipo de Equipamento: </label>
-                                        <select id="tipoEquipamento" v-model="selectedForm.selectedTipoEquipamento" style="width: 500px;">
+                                    <div class="tipoAplicacao column marginBottom">
+                                        <label for="regiao">Tipo Aplicação: </label>
+                                        <select id="tipoAplicacao">
                                             <option disabled selected>Selecione</option>
-                                            <option v-for="tipoEquipamento in subestacaoForm.tipoEquipamento" :key="tipoEquipamento">{{ tipoEquipamento }}</option>
+                                            <option v-for="tipoAplicacao in subestacaoForm.tipoAplicacao"
+                                                :key="tipoAplicacao">{{ tipoAplicacao }}</option>
                                         </select>
                                     </div>
-                                    <div class="moduloEquipamentoQuantidade column">
-                                        <label for="regiao">Quantidade: </label>
-                                <input type="text" v-model="selectedForm.selectedQuantidadeEquipamento" style="width: 300px;">
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="column" style="align-items: flex-end;">
-                                <label for="addModuloDeManobra">Adicionar Módulo de Equipamento: </label>
-                                <div class="botao-estilo" @click="adicionarModuloEquipamento">
-                                    <font-awesome-icon icon="add" :font-size="30" color="white" />
+                                </div>
+                                <div class="moduloManobraQuantidade column">
+                                    <label for="regiao">Quantidade: </label>
+                                    <input type="text" v-model="selectedForm.selectedQuantidadeManobra">
                                 </div>
                             </div>
+                            <div class="column" style="width: 35%">
+                                <div class="moduloManobraTipo column marginBottom">
+                                    <label for="nome">Tipo: </label>
+                                    <select id="tipo" v-model="selectedForm.selectedTipo" style="width: 100%;">
+                                        <option disabled selected>Selecione</option>
+                                        <option v-for="tipo in subestacaoForm.tipo" :key="tipo">{{ tipo }}</option>
+                                    </select>
+                                </div>
+                                <div class="column" style="align-items: flex-end;">
+                                    <label for="addModuloDeManobra">Adicionar Módulo de Manobra: </label>
+                                    <div class="botao-estilo" @click="adicionarModuloManobra">
+                                        <font-awesome-icon icon="add" :font-size="30" color="white" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="tableModuloManobra" v-if="showManobra">
+                            <TabelaComponent :items="tableModuloManobraItens" :colunas="tableModuloManobraColunas" />
                         </div>
-                    </section>
-                    <div class="tableModuloEquipamento" v-if="showEquipamento">
-                        <TabelaComponent :items="tableModuloEquipamentoItens"
-                        :colunas="tableModuloEquipamentoColunas" />
                     </div>
-                </div>
+                    <hr>
+                    <h3 @click="showEquipamento = !showEquipamento">Módulo de Equipamento <button>{{ showEquipamento ?
+                        '^' : '>' }}</button></h3>
+                    <div v-bind:class="{ equipamento: showEquipamento }">
+
+                        <section class="moduloEquipamento row" v-if="showEquipamento">
+                            <div class="row">
+                                <div class="tipoEquipamento column columnMarginR">
+                                    <label for="nome">Tipo de Equipamento: </label>
+                                    <select id="tipoEquipamento" v-model="selectedForm.selectedTipoEquipamento"
+                                        style="width: 500px;">
+                                        <option disabled selected>Selecione</option>
+                                        <option v-for="tipoEquipamento in subestacaoForm.tipoEquipamento"
+                                            :key="tipoEquipamento">{{ tipoEquipamento }}</option>
+                                    </select>
+                                </div>
+                                <div class="moduloEquipamentoQuantidade column">
+                                    <label for="regiao">Quantidade: </label>
+                                    <input type="text" v-model="selectedForm.selectedQuantidadeEquipamento"
+                                        style="width: 300px;">
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="column" style="align-items: flex-end;">
+                                    <label for="addModuloDeManobra">Adicionar Módulo de Equipamento: </label>
+                                    <div class="botao-estilo" @click="adicionarModuloEquipamento">
+                                        <font-awesome-icon icon="add" :font-size="30" color="white" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="tableModuloEquipamento" v-if="showEquipamento">
+                            <TabelaComponent :items="tableModuloEquipamentoItens"
+                                :colunas="tableModuloEquipamentoColunas" />
+                        </div>
+                    </div>
                     <hr>
                     <section class="salva-patio row" style="justify-content: flex-end; margin-top: 100px;">
                         <div class="column">
@@ -177,7 +197,7 @@
                             </div>
                         </div>
                     </section>
-                    
+
                     <div class="tablePatio">
                         <TabelaComponent :items="tablePatioItens" :colunas="tablePatioColunas" />
                     </div>
@@ -197,10 +217,19 @@
                         </div>
                     </div>
                 </section>
-
+                
                 <div class="tableSubestacao">
                     <TabelaComponent :items="tableSubestacaoItens" :colunas="tableSubestacaoColunas" />
                 </div>
+                <hr>
+                <section class="salva-orcamento row" style="justify-content: flex-end; margin-top: 100px;">
+                    <div class="column">
+                        <label for="addOrcamento">Adicionar Orçamento: </label>
+                        <div class="botao-estilo" @click="adicionarOrcamento">
+                            <font-awesome-icon icon="add" :font-size="30" color="white" />
+                        </div>
+                    </div>
+                </section>
             </section>
         </div>
     </section>
@@ -237,83 +266,84 @@ export default {
             }
         },
         adicionarModuloManobra() {
-  this.tableModuloManobraItens = []; 
-  this.tableModuloManobraItens.push({
-    tipo: this.selectedForm.selectedTipo,
-    quantidade: this.selectedForm.selectedQuantidadeManobra,
-    acao: '', 
-  });
-},
-adicionarModuloEquipamento() {
-  this.tableModuloEquipamentoItens = []; 
-  this.tableModuloEquipamentoItens.push({
-    elemento: this.selectedForm.selectedTipoEquipamento,
-    quantidade: this.selectedForm.selectedQuantidadeEquipamento,
-    acao: '', 
-  });
-},
-adicionarPatio() {
-  this.tablePatioItens = []; 
-  this.tablePatioItens.push({
-    patio: "Pátio-" + this.selectedForm.selectedTensaoPrimaria + "-" + this.selectedForm.selectedArranjo,
-    tensaoPrimaria: this.selectedForm.selectedTensaoPrimaria,
-    arranjo: this.selectedForm.selectedArranjo,
-    qtdModuloManobra: this.selectedForm.selectedQuantidadeManobra,
-    qtdModuloEquipamento: this.selectedForm.selectedQuantidadeEquipamento,
-    acao: '', 
-  });
-},
-adicionarSubestacao() {
-  this.tableSubestacaoItens = []; 
-  this.tableSubestacaoItens.push({
-    nomeSubestacao: this.selectedForm.selectedNomeSubestacao,
-    dataCotacao: this.selectedForm.selectedAno + "/" + this.selectedForm.selectedMes,
-    arranjo: this.selectedForm.selectedArranjo,
-    qtdModuloManobra: this.selectedForm.selectedQuantidadeManobra,
-    qtdModuloEquipamento: this.selectedForm.selectedQuantidadeEquipamento,
-    acao: '', 
-  });
-},
+            this.tableModuloManobraItens = [];
+            this.tableModuloManobraItens.push({
+                tipo: this.selectedForm.selectedTipo,
+                quantidade: this.selectedForm.selectedQuantidadeManobra,
+                acao: '',
+            });
+        },
+        adicionarModuloEquipamento() {
+            this.tableModuloEquipamentoItens = [];
+            this.tableModuloEquipamentoItens.push({
+                elemento: this.selectedForm.selectedTipoEquipamento,
+                quantidade: this.selectedForm.selectedQuantidadeEquipamento,
+                acao: '',
+            });
+        },
+        adicionarPatio() {
+            this.tablePatioItens = [];
+            this.tablePatioItens.push({
+                patio: "Pátio-" + this.selectedForm.selectedTensaoPrimaria + "-" + this.selectedForm.selectedArranjo,
+                tensaoPrimaria: this.selectedForm.selectedTensaoPrimaria,
+                arranjo: this.selectedForm.selectedArranjo,
+                qtdModuloManobra: this.selectedForm.selectedQuantidadeManobra,
+                qtdModuloEquipamento: this.selectedForm.selectedQuantidadeEquipamento,
+                acao: '',
+            });
+        },
+        adicionarSubestacao() {
+            this.tableSubestacaoItens = [];
+            this.tableSubestacaoItens.push({
+                nomeSubestacao: this.selectedForm.selectedNomeSubestacao,
+                dataCotacao: this.selectedForm.selectedAno + "/" + this.selectedForm.selectedMes,
+                arranjo: this.selectedForm.selectedArranjo,
+                qtdModuloManobra: this.selectedForm.selectedQuantidadeManobra,
+                qtdModuloEquipamento: this.selectedForm.selectedQuantidadeEquipamento,
+                acao: '',
+            });
+        },
     },
     data() {
         return {
             showManobra: false,
             showEquipamento: false,
             selectedForm: {
-                selectedNomeSubestacao: null, 
+                selectedNomeOrcamento: null,
+                selectedNomeSubestacao: null,
                 selectedAno: null,
                 selectedMes: null,
                 selectedMacroregiao: null,
-                selectedTensaoPrimaria: null, 
-                selectedTipo: "", 
+                selectedTensaoPrimaria: null,
+                selectedTipo: "",
                 selectedQuantidadeManobra: null,
-                selectedTipoEquipamento: null, 
+                selectedTipoEquipamento: null,
                 selectedQuantidadeEquipamento: null,
-            }, 
+            },
             subestacaoForm: {
                 macroregiao: ["Centro Oeste", "Norte", "Nordeste", "Sudeste", "Sul", "Brasil"],
-                ano: [2020, 2021, 2022, 2023], 
-                mes: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], 
-                tipoInstalacao: ["Convencional", "Compacta", "SF6"], 
-                tensaoPrimaria: [13.8, 69, 138, 230, 345, 500], 
+                ano: [2020, 2021, 2022, 2023],
+                mes: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                tipoInstalacao: ["Convencional", "Compacta", "SF6"],
+                tensaoPrimaria: [13.8, 69, 138, 230, 345, 500],
                 arranjo: {
-                    13.8: ["BPT", "BS"], 
-                    69: ["BD5", "BPT", "BS"], 
-                    138: ["BD4", "BD5", "BPT", "BS"], 
-                    230: ["BD4", "BD5", "BPT"], 
-                    345: ["AN", "BD4", "DJM"], 
-                    500: ["AN", "BDDD", "DJM"], 
-                }, 
-                sincDisjuntor: {true: "Sim", false: "Não"}, 
-                tipoAplicacao: ["Medição", "Proteção", "Med./Prot."], 
-                tipo: ["CCP - Conexão de Banco de Capacitores Paralelo", 
-                "CCSS - Conexão de capacitor serie", 
-                "CRL - Conexão de Reator de Linha Manobrável", 
-                "CT - Conexão de transformador"], 
-                tipoEquipamento: ["BCP - Banco de capacitores derivação", 
-                "RA - Reator de Aterramento", 
-                "RT - Reator trifásico", 
-                "TM - Auto/Transformador monofásico"], 
+                    13.8: ["BPT", "BS"],
+                    69: ["BD5", "BPT", "BS"],
+                    138: ["BD4", "BD5", "BPT", "BS"],
+                    230: ["BD4", "BD5", "BPT"],
+                    345: ["AN", "BD4", "DJM"],
+                    500: ["AN", "BDDD", "DJM"],
+                },
+                sincDisjuntor: { true: "Sim", false: "Não" },
+                tipoAplicacao: ["Medição", "Proteção", "Med./Prot."],
+                tipo: ["CCP - Conexão de Banco de Capacitores Paralelo",
+                    "CCSS - Conexão de capacitor serie",
+                    "CRL - Conexão de Reator de Linha Manobrável",
+                    "CT - Conexão de transformador"],
+                tipoEquipamento: ["BCP - Banco de capacitores derivação",
+                    "RA - Reator de Aterramento",
+                    "RT - Reator trifásico",
+                    "TM - Auto/Transformador monofásico"],
             },
             estadosPorMacroregiao: {
                 "Centro Oeste": ["Goiás", "Mato Grosso", "Mato Grosso do Sul"],
@@ -428,17 +458,22 @@ select {
 select {
     width: 180px;
 }
+
 option {
     font-size: 18px;
 }
+
 .dados-patio {
     background-color: #ececec;
     padding: 2%;
 }
-.manobra, .equipamento {
+
+.manobra,
+.equipamento {
     background-color: #e7e7e7;
     padding: 2%;
 }
+
 button {
     background-color: #46b341;
     width: 40px;

@@ -1,17 +1,18 @@
 <template>
   <header>
-    <img src="../../assets/SedigMarca.png" srcset="">
+    <img src="../../assets/SedigMarca.png" alt="logo">
     <nav>
       <ul>
         <li><router-link to="/inicio" class="nav-link">Início</router-link></li>
         <li>|</li>
         <li><router-link to="/orcamentos" class="nav-link">Orçamentos</router-link></li>
-        <li>|</li>
-        <li><router-link to="/insumos" class="nav-link">Insumos</router-link></li>
+        <li v-if="isAdmin">|</li>
+        <li v-if="isAdmin"><router-link to="/insumos" class="nav-link">Insumos</router-link></li>
       </ul>
     </nav>
     <div class="img-perfil" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
-      <img src="../../assets/PerfilADM.png" alt="foto-perfil" srcset="" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;">
+      <img v-if="isAdmin" src="../../assets/PerfilADM.png" alt="foto-perfil" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;">
+      <img v-else src="../../assets/PerfilUsuario.png" alt="foto-perfil" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;">
       <div v-if="showDropdown" class="dropdown">
         <button><router-link to="/perfil" class="nav-link">Perfil</router-link></button>
         <button @click="logout" style="color: #FF0000;"><router-link to="/login" class="nav-link">Logout</router-link></button>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "HeaderComponent",
@@ -30,11 +31,15 @@ export default {
       showDropdown: false,
     };
   },
+  computed: {
+    ...mapGetters(['isAdmin']),
+  },
   methods: {
     ...mapActions(['logout']),
   },
 };
 </script>
+
 
 <style scoped>
 body {

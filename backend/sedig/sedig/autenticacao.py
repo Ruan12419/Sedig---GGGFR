@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import BaseBackend
-from backend.sedig.sedig.models.Usuario import Usuario
+from sedig.models.Usuario import Usuario
 
 class UsuarioBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None):
