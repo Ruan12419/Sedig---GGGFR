@@ -7,14 +7,12 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in items" :key="index" :class="{ imp: index % 2 === 0, par: index % 2 !== 0 }">
-            <!-- Renderiza dinamicamente os campos de entrada ou texto com base no estado de edição -->
             <td v-for="coluna in colunas" :key="coluna.key">
               <template v-if="coluna.key !== 'acao'">
                 <input v-if="editableOrcamentoId === item.id" v-model="item[coluna.key]" />
                 <span v-else>{{ item[coluna.key] }}</span>
               </template>
               <template v-if="coluna.key === 'acao'">
-                <!-- Slot para ações personalizadas -->
                 <slot name="acao" :item="item"></slot>
               </template>
             </td>
