@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 def check_authentication(request):
     if request.user.is_authenticated:
-        print(f"{request.user} Autenticado")
+        print('Usuário autenticado:', request.user)
+        print('Dados da sessão:', request.session.items())
         return JsonResponse({
             'isAuthenticated': True,
             'is_superuser': request.user.is_superuser,
@@ -27,6 +28,8 @@ def login_view(request):
         print(user)
         if user is not None:
             login(request, user)
+            print('ID da sessão:', request.session.session_key)
+            print('Dados da sessão:', request.session.items())
             return JsonResponse({ 'mensagem': "Login realizado com sucesso!"}, status=200)
         else:
             return JsonResponse({'mensagem': 'Email ou senha inválidos'}, status=401)

@@ -54,8 +54,9 @@ export default {
             http.post('/login', dadosLogin)
         .then(response => {
             if (response.status === 200) {
-                const sessionid = response.headers['set-cookie'];
+                const sessionid = response.headers['sessionid'];
                 localStorage.setItem('sessionid', sessionid);
+                console.log(sessionid);
 
                 this.$store.dispatch('checkAuth').then(() => {
                     this.$router.push('/inicio');
