@@ -22,6 +22,7 @@ const routes = [
   } }, 
   { path: '/orcamentos', component: Orcamentos }, 
   { path: '/login', component: Login },
+  { path: '/logout', component: Login },
   { path: '/cadastro', component: Cadastro },
   { path: '/recuperarSenha', component: RecuperarSenha },
   { path: '/cadastrarNovaSenha', component: CadastrarNovaSenha }, 
@@ -40,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
 
   const isAuthenticated = store.getters.isAuthenticated;
 
-  const authRequiredRoutes = ['/inicio', '/perfil', '/orcamentos', '/insumos'];
+  const authRequiredRoutes = ['/inicio', '/perfil', '/orcamentos', '/insumos', '/logout'];
   const publicOnlyRoutes = ['/login', '/cadastro'];
 
   const authRequired = authRequiredRoutes.includes(to.path);

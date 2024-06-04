@@ -15,7 +15,7 @@
       <img v-else src="../../assets/PerfilUsuario.png" alt="foto-perfil" style="background-color: #FFF; border-radius: 100%; width: 60px; height: 60px;">
       <div v-if="showDropdown" class="dropdown">
         <button><router-link to="/perfil" class="nav-link">Perfil</router-link></button>
-        <button @click="logout" style="color: #FF0000;"><router-link to="/login" class="nav-link">Logout</router-link></button>
+        <button @click="logout" style="color: #FF0000;"><router-link to="/logout" class="nav-link">Logout</router-link></button>
       </div>
     </div>
   </header>
