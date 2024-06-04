@@ -49,9 +49,9 @@ Este é um guia passo a passo para configurar e executar o projeto sedig, que é
 ### Configuração do Frontend Vue.js
 1. Mantenha o servidor Djando ativo e abra um novo terminal para prosseguir
    * No VS code utilize o comando:
-   ```bash
-   ctrl + shift + '
-   ```
+      ```bash
+      ctrl + shift + '
+      ```
 2. Assegure de estar na pasta raiz do projeto
 
 3. Instale as dependências do projeto Vue.js:
