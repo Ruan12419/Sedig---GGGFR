@@ -61,21 +61,21 @@ Este é um guia passo a passo para configurar e executar o projeto sedig, que é
    ```
 #### Compilação e Hot-Reloads para Desenvolvimento
    * Para iniciar o servidor de desenvolvimento do Vue.js:
-   ```bash
-   npm run serve
-   ```
+      ```bash
+      npm run serve
+      ```
 
 #### Compilação e Minificação para Produção
    * Para compilar e minificar os arquivos para produção:
-   ```bash
-   npm run build
-   ```
+      ```bash
+      npm run build
+      ```
 
 #### Lint e Correções de Arquivos
    * Para executar o lint e corrigir arquivos:
-   ```bash
-   npm run lint
-   ```
+      ```bash
+      npm run lint
+      ```
 
 ## Executando o Projeto Completo
    * Com ambos os servidores (Django e Vue.js) rodando, você pode acessar o aplicativo web no navegador pelo endereço fornecido pelo Vue.js (geralmente http://localhost:8080).
