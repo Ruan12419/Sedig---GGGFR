@@ -8,6 +8,7 @@ import random
 import traceback
 from .models import Usuario
 from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_http_methods
 from django.views import View
 from .models.orcamentos_model import Orcamento, Patio, ModuloManobra, ModuloEquipamento
 from .models.insumos_model import Insumo
