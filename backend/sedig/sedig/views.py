@@ -1,5 +1,16 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_exempt
+import json
+import random
+import traceback
+from .models import Usuario
+from django.utils.decorators import method_decorator
+from django.views import View
+from .models.orcamentos_model import Orcamento, Patio, ModuloManobra, ModuloEquipamento
+from .models.insumos_model import Insumo
 
 def check_authentication(request):
     if request.user.is_authenticated:
@@ -15,10 +26,6 @@ def check_authentication(request):
         return JsonResponse({'isAuthenticated': False})
 
 
-from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
 
 @csrf_exempt
 def login_view(request):
@@ -37,11 +44,6 @@ def login_view(request):
     return JsonResponse({'mensagem': 'Método HTTP não permitido'}, status=405)
 
 
-import json
-import random
-import traceback
-from django.http import JsonResponse
-from .models import Usuario
 
 @csrf_exempt
 def cadastro(request):
@@ -71,8 +73,6 @@ def cadastro(request):
     return JsonResponse({'mensagem': 'Método HTTP não permitido'}, status=405)
 
 
-from django.contrib.auth import logout
-from django.http import JsonResponse
 
 @csrf_exempt
 def logout_view(request):
@@ -82,8 +82,6 @@ def logout_view(request):
 
 
 
-from django.contrib.auth.decorators import login_required
-from sedig.models import Usuario
 
 @login_required
 def usuario_view(request):
@@ -99,11 +97,6 @@ def usuario_view(request):
     }
     return JsonResponse(data)
 
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
-from .models.orcamentos_model import Orcamento, Patio, ModuloManobra, ModuloEquipamento
-import json
 
 @method_decorator(csrf_exempt, name='dispatch')
 class OrcamentoCompletoView(View):
@@ -170,8 +163,6 @@ def lista_orcamentos(request):
     return JsonResponse(orcamentos_data, safe=False)
 
 
-from django.views.decorators.http import require_http_methods
-import json
 
 @require_http_methods(["POST"])
 @csrf_exempt
@@ -197,7 +188,6 @@ def delete_orcamento(request, orcamento_id):
     except Orcamento.DoesNotExist:
         return JsonResponse({'mensagem': 'Orçamento não encontrado.'}, status=404)
 
-from .models.insumos_model import Insumo
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ListaInsumosView(View):
